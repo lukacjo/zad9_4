@@ -5,7 +5,7 @@ app = Flask(__name__)
 app.config["SECRET_KEY"] = "nininini"
 
 
-@app.route("/api/v1/movies/", methods=["GET"])
+@app.route("/api/v1/movies", methods=["GET"])
 def movies_list_api_v1():
     def sort_key(list):  # dodanie sortowania
         return list["title"]
@@ -22,7 +22,7 @@ def get_movie(movie_id):
         return jsonify({"movie": movie})
 
 
-@app.route("/api/v1/movies/", methods=["POST"])
+@app.route("/api/v1/movies", methods=["POST"])
 def create_movie():
     if not request.json or not "title" in request.json:
         abort(400)
@@ -36,7 +36,7 @@ def create_movie():
     return jsonify({"movie": movie}), 201
 
 
-@app.route("/api/v1/movies/<int:movie_id>/", methods=["DELETE"])
+@app.route("/api/v1/movies/<int:movie_id>", methods=["DELETE"])
 def delete_movie(movie_id):
     result = movies.delete(movie_id)
     print(movie_id)
