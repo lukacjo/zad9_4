@@ -1,3 +1,7 @@
+import sys
+
+sys.path.insert(0, "app")
+
 from flask import Flask, jsonify, abort, make_response, request
 from models import movies
 
