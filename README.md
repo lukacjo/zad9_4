@@ -1,6 +1,6 @@
 # README zadania 9_4
 
-W app.py jest aplikacja, a w api.py jest api.
+W folderze app jest aplikacja, a w folderze api jest api.
 
 Należy zainstalować requirements.txt
 
