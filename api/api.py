@@ -2,6 +2,7 @@ import sys
 
 sys.path.insert(0, "app")
 
+
 from flask import Flask, jsonify, abort, make_response, request
 from models import movies
 
@@ -30,8 +31,12 @@ def get_movie(movie_id):
 def create_movie():
     if not request.json or not "title" in request.json:
         abort(400)
+    if movies.all():
+        movie_id = movies.all()[-1]["id"] + 1
+    else:
+        movie_id = 1
     movie = {
-        "id": movies.all()[-1]["id"] + 1,
+        "id": movie_id,
         "title": request.json["title"],
         "opinion": request.json.get("opinion", ""),
         "watched": True,

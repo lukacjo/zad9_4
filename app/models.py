@@ -10,7 +10,10 @@ class Movies:
             self.movies = []
 
     def all(self):
-        return self.movies
+        return [
+            {key: value for key, value in movie.items() if key != "csrf_token"}
+            for movie in self.movies
+        ]
 
     def get(self, id):
         movie = [movie for movie in self.all() if movie["id"] == id]
