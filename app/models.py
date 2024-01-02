@@ -1,10 +1,11 @@
 import json
+import secrets
 
 
 class Movies:
     def __init__(self):
         try:
-            with open("movies.json", "r") as f:
+            with open("movies2.json", "r") as f:
                 self.movies = json.load(f)
         except FileNotFoundError:
             self.movies = []
@@ -22,7 +23,7 @@ class Movies:
         return []
 
     def create(self, data):
-        # data.pop('csrf_token') # nie wiem czemu ale to nie moe być dla api no ale ok
+        data["csrf_token"] = secrets.token_urlsafe(91)
         self.movies.append(data)
         self.save_all()
 
