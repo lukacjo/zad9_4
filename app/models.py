@@ -23,6 +23,7 @@ class Movies:
         return []
 
     def create(self, data):
+        data["id"] = len(self.movies) + 1
         data["csrf_token"] = secrets.token_urlsafe(91)
         self.movies.append(data)
         self.save_all()

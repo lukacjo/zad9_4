@@ -12,7 +12,6 @@ from wtforms.validators import DataRequired, Email
 
 
 class MovieForm(FlaskForm):
-    id = IntegerField("id", validators=[DataRequired()])
     title = StringField("Tytuł", validators=[DataRequired()])
     opinion = TextAreaField("Opinia o filmie", validators=[])
     watched = BooleanField("Czy obejrzany?")
