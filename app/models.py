@@ -5,7 +5,7 @@ import secrets
 class Movies:
     def __init__(self):
         try:
-            with open("movies2.json", "r") as f:
+            with open("movies.json", "r") as f:
                 self.movies = json.load(f)
         except FileNotFoundError:
             self.movies = []
