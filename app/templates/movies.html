@@ -19,7 +19,7 @@
     </thead>
 {% for movie in movies %}
     <tr>
-        <td><a href="/movies/{{ loop.index }}">{{ movie.title }}</a></td>
+        <td><a href="/movies/{{ movie.id }}">{{ movie.title }}</a></td>
         <td>{{ movie.opinion }}</td>
         <td>{{ movie.watched }}</td>
     </tr>

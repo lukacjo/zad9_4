@@ -22,6 +22,7 @@ class Movies:
 
     def get(self, id):
         movie = [movie for movie in self.all() if movie["id"] == id]
+        print(movie)
         if movie:
             return movie[0]
         return []
