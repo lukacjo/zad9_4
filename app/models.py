@@ -9,6 +9,10 @@ class Movies:
                 self.movies = json.load(f)
         except FileNotFoundError:
             self.movies = []
+        self.last_id = self.calculate_last_id()
+
+    def calculate_last_id(self):
+        return max([0] + [movie.get("id", 0) for movie in self.movies])
 
     def all(self):
         return [
@@ -23,7 +27,8 @@ class Movies:
         return []
 
     def create(self, data):
-        data["id"] = len(self.movies) + 1
+        self.last_id += 1
+        data["id"] = self.last_id
         data["csrf_token"] = secrets.token_urlsafe(91)
         self.movies.append(data)
         self.save_all()
@@ -35,18 +40,21 @@ class Movies:
     def update(self, id, data):
         movie = self.get(id)
         if movie:
-            index = self.movies.index(movie)
-            self.movies[index] = data
-            self.save_all()
-            return True
+            index = next((i for i, m in enumerate(self.movies) if m["id"] == id), None)
+            if index is not None:
+                self.movies[index] = data
+                self.save_all()
+                return True
         return False
 
     def delete(self, id):
         movie = self.get(id)
         if movie:
-            self.movies.remove(movie)
-            self.save_all()
-            return True
+            index = next((i for i, m in enumerate(self.movies) if m["id"] == id), None)
+            if index is not None:
+                del self.movies[index]
+                self.save_all()
+                return True
         return False
 
 

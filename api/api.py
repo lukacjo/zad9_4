@@ -43,7 +43,6 @@ def create_movie():
 @app.route("/api/v1/movies/<int:movie_id>", methods=["DELETE"])
 def delete_movie(movie_id):
     result = movies.delete(movie_id)
-    print(movie_id)
     if not result:
         abort(404)
     else:
@@ -66,14 +65,14 @@ def update_movie(movie_id):
         ]
     ):
         abort(400)
-    movie = {
+    updated_movie = {
         "id": movie_id,
         "title": data.get("title", movie["title"]),
         "opinion": data.get("opinion", movie["opinion"]),
         "watched": data.get("watched", movie["watched"]),
     }
-    movies.update(movie_id, movie)
-    return jsonify({"movie": movie})
+    movies.update(movie_id, updated_movie)
+    return jsonify({"movie": updated_movie})
 
 
 @app.errorhandler(404)
