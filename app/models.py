@@ -21,10 +21,10 @@ class Movies:
         ]
 
     def get(self, id):
-        movie = [movie for movie in self.all() if movie["id"] == id]
-        print(movie)
-        if movie:
-            return movie[0]
+        for movie in self.all():
+            movie_id = movie.get("id")
+            if movie_id is not None and movie_id == id:
+                return movie
         return []
 
     def create(self, data):
@@ -40,9 +40,12 @@ class Movies:
 
     def update(self, id, data):
         movie = self.get(id)
-        if movie:
-            index = next((i for i, m in enumerate(self.movies) if m["id"] == id), None)
+        if movie and "id" in movie:
+            index = next(
+                (i for i, m in enumerate(self.movies) if m.get("id") == id), None
+            )
             if index is not None:
+                data["id"] = id
                 self.movies[index] = data
                 self.save_all()
                 return True

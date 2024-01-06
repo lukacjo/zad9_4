@@ -34,7 +34,7 @@ def create_movie():
     movie = {
         "title": request.json["title"],
         "opinion": request.json.get("opinion", ""),
-        "watched": True,
+        "watched": request.json.get("watched", False),
     }
     movies.create(movie)
     return jsonify({"movie": movie}), 201
